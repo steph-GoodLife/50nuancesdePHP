@@ -55,7 +55,7 @@
                     <a class="nav-link" href="post.html">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">connexion</a>
+                    <a class="nav-link" href="contact.html">Connexion</a>
                 </li>
             </ul>
         </div>
@@ -83,22 +83,19 @@
         <div class="col-lg-8 col-md-10 mx-auto">
 
 
-
-                <?php
-// pas encore d'articles, la variable contient false
-if(!$recup_accueil){
-    ?>
-    <h3 class="text-success">Pas encore de nouvelles</h3>
-                <?php
-}else{
-       foreach($recup_accueil as $item) {
+            <?php
+            // pas encore d'articles, la variable contient false
+            if (!$recup_accueil) {
 
                 ?>
-             
-                
-            
+                <h3 class="text-success">Pas encore de nouvelles</h3>
+                <?php
+            } else {
+                foreach ($recup_accueil as $item) {
+                    ?>
                     <div class="post-preview">
                         <h2 class="post-title">
+
                             <a href="?idnouvelle=<?=$item['idarticle'] ?>"><?=$item['thetitle']?></a>
                         </h2>
                         <p>
@@ -126,12 +123,11 @@ if(!$recup_accueil){
                         <p>Date: <?=$item['thedate']?></p>
 
 
+
                     </div>
                     <?php
                 }
-
             }
-        
             ?>
         </div>
     </div>
