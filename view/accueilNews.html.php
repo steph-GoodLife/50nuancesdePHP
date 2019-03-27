@@ -22,6 +22,12 @@
 
     <!-- Custom styles for this template -->
     <link href="view/css/clean-blog.min.css" rel="stylesheet">
+    <style>
+        #texte{
+            text-decoration: none;
+        }
+
+    </style>
 
 </head>
 
@@ -43,7 +49,7 @@
                     <a class="nav-link" href="index.html">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">Rubrique</a>
+                    <a class="nav-link" href="view/rubNews.html.php">Rubrique</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="post.html">Contact</a>
@@ -76,33 +82,56 @@
     <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
 
+
+
                 <?php
 // pas encore d'articles, la variable contient false
 if(!$recup_accueil){
     ?>
     <h3 class="text-success">Pas encore de nouvelles</h3>
                 <?php
-}else {
-    foreach ($recup_accueil as $item) {
+}else{
+       foreach($recup_accueil as $item) {
+
+                ?>
+             
+                
+            
+                    <div class="post-preview">
+                        <h2 class="post-title">
+                            <a href="?idnouvelle=<?=$item['idarticle'] ?>"><?=$item['thetitle']?></a>
+                        </h2>
+                        <p>
+                        <?php
+                              $idcateg = explode("," ,$item['idcategorie']);
+                              $titlecateg = explode("|||" ,$item['titlecateg']);
+
+                        if(empty($idcateg[0])){
+                            ?>
+                            <h5>Pas de categorie attribuée</h5>
+                            <?php
+                        }else{
+                        foreach ($idcateg as $ki=> $value) {
+                            ?>
+
+                            <a href="?idcateg=<?= $value ?>">Rubriques: <?= $titlecateg[$ki] . " | " ?></a>
+                            <?php
+                           }
+                        }
+                        ?>
+                    </p>
+                        <p><a href="authorNews.html.php"><?= $item['thetitle']?></a></p>
+                        <p><?=$item['thetext']?><a id='texte' href='?idnouvelle=<?=$item['idarticle']?>'><em> ...lire la suite</em></a></p>
+                        <p><a href="?idauthor">Ecrit par: <?=$item['thelogin']." | ".$item['thename']?></a></p>
+                        <p>Date: <?=$item['thedate']?></p>
 
 
-        ?>
-        <div class="post-preview">
-            <h2 class="post-title">
-                Titre (cliquable -> détail art)
-            </h2>
+                    </div>
+                    <?php
+                }
 
-            <p><a href="#">Rubriques de la nouvelle (cliquables -> rubriques)</a></p>
-            <p>Texte coupé à 350 caractères (! attention à la césure du texte)</p>
-            <p><a href="authorNews.html.php"><?= $item['thetitle'] ?></a></p>
-            <p>Date</p>
-
-
-        </div>
-        <?php
-    }
-}
-
+            }
+        
             ?>
         </div>
     </div>
